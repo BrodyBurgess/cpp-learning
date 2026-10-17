@@ -1,0 +1,68 @@
+#include <iostream>
+#include <memory>
+#include <utility>
+
+class Enemy 
+{
+
+    public:
+        virtual void Attack() = 0;
+
+        virtual ~Enemy()
+        {
+            std::cout << "Enemy destroyed!\n";
+        }
+};
+        
+class Goblin : public Enemy
+{
+
+    public:
+        Goblin()
+        {
+            std::cout << "Goblin spawned!\n";
+        }
+        void Attack() override
+        {
+            std::cout << "Goblins swings a sword\n";
+        }
+
+        ~Goblin() override
+        {
+            std::cout << "Goblin destroyed!\n";
+        }
+};
+
+class Dragon : public Enemy
+{
+
+    public:
+        Dragon()
+        {
+            std::cout << "Dragon spawned!\n";
+        }
+
+        void Attack() override
+        {
+            std::cout << "Dragon breathes fire!\n";
+        }
+
+        ~Dragon() override
+        {
+            std::cout << "Dragon detsroyed!\n";
+        }
+};
+
+ int main()
+{
+    std::unique_ptr<Enemy> activeEnemy = std::make_unique<Goblin>();  
+
+    activeEnemy->Attack();
+
+    activeEnemy = std::make_unique<Dragon>();
+
+    activeEnemy->Attack();
+    
+    return 0;
+}
+
